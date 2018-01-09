@@ -1,7 +1,5 @@
 package com.example.youssef.photogallery;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -21,19 +19,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 
 public class PhotoGalleryFragment extends Fragment {
+    boolean f = true;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private ArrayList<GalleryItem> mItems;
     private ThumbnailDownloader<PhotoHolder> mThumbnailDownloader;
-
     private QueryPreferences mQueryPreferences = new QueryPreferences();
 
     @Override
@@ -66,7 +62,7 @@ public class PhotoGalleryFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.menu_item_clear) {
+        if (item.getItemId() == R.id.menu_item_clear) {
             mQueryPreferences.setStoredQuery(getContext(), null);
             updateItems(null);
             return true;
@@ -88,6 +84,7 @@ public class PhotoGalleryFragment extends Fragment {
                 updateItems(s);
                 return true;
             }
+
             @Override
             public boolean onQueryTextChange(String s) {
                 return false;
@@ -122,9 +119,8 @@ public class PhotoGalleryFragment extends Fragment {
         mThumbnailDownloader.clearQueue();
     }
 
-    boolean f = true;
     private void updateUI() {
-        if(f) {
+        if (f) {
             if (mAdapter == null) {
                 if (mItems != null) {
                     f = false;
@@ -143,10 +139,11 @@ public class PhotoGalleryFragment extends Fragment {
     private class FetchItemsTask extends AsyncTask<Void, Void, ArrayList<GalleryItem>> {
 
         private String mQuery;
+
         public FetchItemsTask(String query) {
-            if(query == null){
+            if (query == null) {
                 mQuery = mQueryPreferences.getStoredQuery(getContext());
-            }else {
+            } else {
                 mQuery = query;
             }
         }
@@ -161,10 +158,10 @@ public class PhotoGalleryFragment extends Fragment {
 
         @Override
         protected void onPostExecute(ArrayList<GalleryItem> items) {
-            if(mItems != null) {
+            if (mItems != null) {
                 mItems.clear();
                 mItems.addAll(items);
-            }else{
+            } else {
                 mItems = items;
             }
             updateUI();
@@ -190,8 +187,6 @@ public class PhotoGalleryFragment extends Fragment {
         @Override
         public void onBindViewHolder(PhotoHolder holder, int position) {
             GalleryItem item = mItems.get(position);
-//            holder.bind(getResources().getDrawable(R.drawable.ic_launcher));
-//            mThumbnailDownloader.enqueue(holder, item.getUrl());
             Picasso.with(getContext())
                     .load(item.getUrl())
                     .placeholder(R.drawable.ic_launcher)

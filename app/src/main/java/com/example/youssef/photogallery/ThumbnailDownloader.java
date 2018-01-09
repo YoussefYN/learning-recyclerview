@@ -1,14 +1,11 @@
 package com.example.youssef.photogallery;
 
-import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
 import android.util.Log;
-
-import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
