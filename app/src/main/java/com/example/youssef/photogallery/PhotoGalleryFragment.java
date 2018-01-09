@@ -173,7 +173,6 @@ public class PhotoGalleryFragment extends Fragment {
 
     private class PhotoAdapter extends RecyclerView.Adapter<PhotoHolder> {
         ArrayList<GalleryItem> mItems;
-        private ImageView mImageView;
 
         public PhotoAdapter(ArrayList<GalleryItem> items) {
             mItems = items;
@@ -185,7 +184,6 @@ public class PhotoGalleryFragment extends Fragment {
 
             View view = layoutInflater
                     .inflate(R.layout.gallery_item, parent, false);
-            mImageView = view.findViewById(R.id.fragment_photo_galler_item);
             return new PhotoHolder(view);
         }
 
@@ -197,7 +195,7 @@ public class PhotoGalleryFragment extends Fragment {
             Picasso.with(getContext())
                     .load(item.getUrl())
                     .placeholder(R.drawable.ic_launcher)
-                    .into(mImageView);
+                    .into(holder.mImageView);
         }
 
         @Override
