@@ -23,6 +23,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class PhotoGalleryFragment extends Fragment {
     boolean f = true;
@@ -199,13 +202,13 @@ public class PhotoGalleryFragment extends Fragment {
         }
     }
 
-    private class PhotoHolder extends RecyclerView.ViewHolder {
+    protected static class PhotoHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.fragment_photo_galler_item)
         public ImageView mImageView;
-
 
         public PhotoHolder(View itemView) {
             super(itemView);
-            mImageView = (ImageView) itemView;
+            ButterKnife.bind(this, itemView);
         }
 
         public void bind(Drawable item) {
